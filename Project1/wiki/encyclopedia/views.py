@@ -41,9 +41,15 @@ def index(request):
 
 
 def entry_display(request, title):
-    html_content = markdown2.markdown_path(f"entries/{title}.md")
-    return render(request, 'encyclopedia/entry.html', {'title':title,
-     'html_content':html_content})
+    if title.lower() in entries:
+        html_content = markdown2.markdown_path(f"entries/{title}.md")
+        return render(request, 'encyclopedia/entry.html', {'title':title,
+        'html_content':html_content})
+    else:
+        return render(request, "encyclopedia/error.html",{
+            "title":"Page Not Found",
+            "content": "Sorry, the requested URL cannot be found!"
+        })
 
 
 def newpage(request):
