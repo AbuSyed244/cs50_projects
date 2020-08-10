@@ -1,56 +1,7 @@
-# Git
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Git is a version control tool that can be used to keep track of versions of a software project.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## GitHub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-GitHub is an online service for hosting git repositories.
-
-
-
-
-
-
-
+# Git
+
+Git is a distributed version-control system for tracking changes in source code during software development.
+
+## GitHub
+
+GitHub is an online service for hosting git repositories.
