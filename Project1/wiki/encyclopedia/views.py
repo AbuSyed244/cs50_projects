@@ -9,13 +9,15 @@ from django.urls import reverse
 from django.urls import URLPattern
 import random
 
+entries = []
+for ent in util.list_entries():
+    entries.append(ent.lower())
+
 def search(request):
     if request.method == 'POST':
-        query = request.POST.get('q')
-        entries = []
+        query = request.POST.get('q')        
         search_entries = []
-        for ent in util.list_entries():
-            entries.append(ent.lower())
+        
         if query.lower() in entries:
             return entry_display(request, query)
         for entry in entries:
@@ -48,9 +50,7 @@ def newpage(request):
     if request.method == 'POST':
         new_title = request.POST.get('new_title')
         new_content = request.POST.get('new_content')
-        entries = []
-        for ent in util.list_entries():
-            entries.append(ent.lower())
+        
         if new_title.lower() not in entries:
             util.save_entry(new_title.title(), new_content)
             return entry_display(request, new_title)            
@@ -74,10 +74,7 @@ def edit(request, title):
         util.save_entry(title, edit_content.replace("\r", ""))
         return entry_display(request, title)
 
-def random_page(request):
-    entries = []
-    for ent in util.list_entries():
-        entries.append(ent.lower())
+def random_page(request):    
     return entry_display(request, random.choice(entries))
 
 
