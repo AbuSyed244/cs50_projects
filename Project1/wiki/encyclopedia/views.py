@@ -70,8 +70,8 @@ def edit(request, title):
             "ex_content": ex_content
         })
     else:       
-        edit_content = request.POST.get("edit_content") 
-        util.save_entry(title, edit_content)
+        edit_content = request.POST.get("edit_content")
+        util.save_entry(title, edit_content.replace("\r", ""))
         return entry_display(request, title)
 
 def random_page(request):
