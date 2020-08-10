@@ -1,3 +1,3 @@
 #Julia
 
-Julia is a high-level, high-performance, dynamic programming language.
+Julia is a high-performance, dynamic programming language.

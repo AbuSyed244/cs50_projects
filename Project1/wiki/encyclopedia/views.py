@@ -9,15 +9,13 @@ from django.urls import reverse
 from django.urls import URLPattern
 import random
 
-entries = []
-for ent in util.list_entries():
-    entries.append(ent.lower())
-
 def search(request):
     if request.method == 'POST':
         query = request.POST.get('q')        
         search_entries = []
-        
+        entries = []
+        for ent in util.list_entries():
+            entries.append(ent.lower())
         if query.lower() in entries:
             return entry_display(request, query)
         for entry in entries:
@@ -41,6 +39,9 @@ def index(request):
 
 
 def entry_display(request, title):
+    entries = []
+    for ent in util.list_entries():
+        entries.append(ent.lower())
     if title.lower() in entries:
         html_content = markdown2.markdown_path(f"entries/{title}.md")
         return render(request, 'encyclopedia/entry.html', {'title':title,
@@ -53,6 +54,9 @@ def entry_display(request, title):
 
 
 def newpage(request):
+    entries = []
+    for ent in util.list_entries():
+        entries.append(ent.lower())
     if request.method == 'POST':
         new_title = request.POST.get('new_title')
         new_content = request.POST.get('new_content')
@@ -81,6 +85,9 @@ def edit(request, title):
         return entry_display(request, title)
 
 def random_page(request):    
+    entries = []
+    for ent in util.list_entries():
+        entries.append(ent.lower())
     return entry_display(request, random.choice(entries))
 
 
