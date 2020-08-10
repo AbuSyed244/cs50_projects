@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.urls import URLPattern
+import random
 
 def search(request):
     if request.method == 'POST':
@@ -24,7 +25,7 @@ def search(request):
             elif query.lower() not in entry:            
                 entry =+ 1
         if len(search_entries) == 0:
-            return render(request, 'encyclopedia/notfound.html', {
+            return render(request, 'encyclopedia/error.html', {
             'content':'Sorry, your search returned no entries.',
             'title':'No entries found'})
         else:
@@ -47,6 +48,36 @@ def newpage(request):
     if request.method == 'POST':
         new_title = request.POST.get('new_title')
         new_content = request.POST.get('new_content')
-        util.save_entry(new_title.title(), new_content)
-        return entry_display(request, new_title)
-    return render(request, 'encyclopedia/newpage.html', {'title': 'Create New Page'})
+        entries = []
+        for ent in util.list_entries():
+            entries.append(ent.lower())
+        if new_title.lower() not in entries:
+            util.save_entry(new_title.title(), new_content)
+            return entry_display(request, new_title)            
+        else:
+            return render(request, "encyclopedia/error.html", {
+                "title": "Page not saved",
+                "content": "Sorry, another page with the same name already exists!"                
+            })        
+    else:
+        return render(request, 'encyclopedia/newpage.html', {'title': 'Create New Page'})
+
+def edit(request, title):    
+    ex_content = util.get_entry(title)
+    if request.method == "GET":
+        return render(request, "encyclopedia/editpage.html", {
+            "title": title.title(),          
+            "ex_content": ex_content
+        })
+    else:       
+        edit_content = request.POST.get("edit_content") 
+        util.save_entry(title, edit_content)
+        return entry_display(request, title)
+
+def random_page(request):
+    entries = []
+    for ent in util.list_entries():
+        entries.append(ent.lower())
+    return entry_display(request, random.choice(entries))
+
+
