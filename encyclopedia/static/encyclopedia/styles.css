@@ -1,3 +1,7 @@
+html {
+    overflow: scroll;
+  }
+
 body {
     margin: 0;
     background-color: white;
@@ -15,6 +19,7 @@ h1 {
 textarea {
     height: 90vh;
     width: 80%;
+    resize: none;
 }
 
 .main {
@@ -37,6 +42,22 @@ textarea {
     margin-top: 5px;
 }
 
-.n_titlediv {
-    height: 50px;
+#n_titletxt {
+    height: 85px;
+    width: 98%;
+    margin: 10px;
+    font-size: 40px;
+    padding: 10px;
 }
+
+#n_bodytxt {
+    height: 315px;
+    width: 98%;
+    margin: 10px;  
+
+}
+
+#body_ind {
+    width: 90%;
+}
+

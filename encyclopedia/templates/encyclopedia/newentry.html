@@ -4,16 +4,23 @@
 
 {% block body %}
 
-    <div class="n_titlediv">
-        <textarea placeholder="Title"></textarea>
-    </div>
-
-    <div class="n_bodydiv">
-        <textarea placeholder="Content"></textarea>
+    <h1 style="margin-left: 10px;">Create a New Entry</h1><br>
+    
+    <div>
+        <h3 style="margin-left: 10px;">Name your article:</h3>
+        <textarea form="newentryform" placeholder="Title" id="n_titletxt" name="n_title"></textarea>
     </div>
 
     <div>
-        <input type="button" value="Save">
+        <h3 style="margin-left: 10px;">Write a description:</h3>
+        <textarea form="newentryform" placeholder="Content" id="n_bodytxt" name="n_cont"></textarea>
+    </div>
+
+    <div>
+        <form action="{% url 'encyclopedia:newentry' %}" method="POST" id="newentryform">
+            {% csrf_token %}
+            <input type="submit" value="Save" style="margin: 10px">
+        </form>
     </div>
 
 

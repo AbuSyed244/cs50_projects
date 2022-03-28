@@ -46,7 +46,21 @@ def search(request):
                     })
 
 def newentry(request):
-    return render(request, "encyclopedia/newentry.html")
+    if request.method == 'POST':
+        n_title = request.POST.get('n_title')
+        n_cont = request.POST.get('n_cont')
+        mdtitle = f"# {n_title}\n"
+
+        if n_title in util.list_entries():
+            return render(request, "encyclopedia/viewentry.html", {
+                "entrytitle": "Page Already Exists!",
+                "entry": "Sorry, but the page you're trying to create already exits!"
+            })
+        else:
+            util.save_entry(n_title, mdtitle + n_cont)
+            return viewentry(request, n_title)
+    else:
+        return render(request, "encyclopedia/newentry.html")
 
 
 def error_404(request, exception):

@@ -20,8 +20,8 @@ def save_entry(title, content):
     it is replaced.
     """
     filename = f"entries/{title}.md"
-    if default_storage.exists(filename):
-        default_storage.delete(filename)
+    #if default_storage.exists(filename):
+        #default_storage.delete(filename)
     default_storage.save(filename, ContentFile(content))
 
 
