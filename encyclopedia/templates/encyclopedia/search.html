@@ -1,0 +1,16 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title%} Search Results {% endblock %}
+
+{% block body %}
+{% for searchentry in searchentries %}
+    {{message}}
+<ul>
+    <a href = "/wiki/{{searchentry}}"> <li>{{searchentry | title}}</li> </a>
+</ul>
+
+{% empty %}
+    <p>{{ message }}</p>
+
+{% endfor %}
+{% endblock %}
