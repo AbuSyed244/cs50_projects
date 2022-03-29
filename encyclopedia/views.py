@@ -60,7 +60,30 @@ def newentry(request):
             util.save_entry(n_title, mdtitle + n_cont)
             return viewentry(request, n_title)
     else:
-        return render(request, "encyclopedia/newentry.html")
+        return render(request, "encyclopedia/modifyentry.html", {
+            "label": "Create a new entry",
+            "title_label": "Name Your Article:",
+            "cont_label": "Write a Description:"
+        })
+
+def editpage(request, entry):
+
+    if request.method == 'POST':
+        e_title = request.POST.get('n_title')
+        e_cont = request.POST.get('n_cont')
+        
+        util.save_entry(e_title, e_cont)
+        return viewentry(request, e_title)
+    
+    else:
+
+        return render(request, "encyclopedia/modifyentry.html", {
+            "label": "Edit Page",
+            "title_label": "Rename Article:",
+            "cont_label": "Modify Content:",
+            "e_title": entry,
+            "e_content": util.get_entry(entry)                 
+        })
 
 
 def error_404(request, exception):

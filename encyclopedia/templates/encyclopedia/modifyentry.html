@@ -1,0 +1,34 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %} {{label | title}} {% endblock %}
+
+{% block body %}
+
+    <h1 style="margin-left: 10px;">{{label | title}}</h1><br>
+    
+    <div>
+        <h3 style="margin-left: 10px;">{{title_label}}</h3>
+        <textarea form="modentryform" placeholder="Title" id="n_titletxt" name="n_title">{{e_title}}</textarea>
+    </div>
+
+    <div>
+        <h3 style="margin-left: 10px;">{{cont_label}}</h3>
+        <textarea form="modentryform" placeholder="Content" id="n_bodytxt" name="n_cont">{{e_content}}</textarea>
+    </div>
+
+    <div>
+        {% if e_content %}
+            <form action="/wiki/editpage/{{title_label}}" method="POST" id="modentryform">
+                {% csrf_token %}
+                <input type="submit" value="Save" style="margin: 10px">
+            </form>
+        {% else %}        
+            <form action="{% url 'encyclopedia:newentry' %}" method="POST" id="modentryform">
+                {% csrf_token %}
+                <input type="submit" value="Save" style="margin: 10px">
+            </form>
+        {% endif %}
+    </div>
+
+
+{% endblock %}

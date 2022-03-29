@@ -4,8 +4,11 @@
 
 {% block body %}
 
+    <div style="text-align: right; margin-right: 25px;">
+        <a href="/wiki/editpage/{{entrytitle}}">Edit page✎</a>
+    </div>
 
-{{entry | safe}}
+    {{entry | safe}}
 
 
 {% endblock %}
