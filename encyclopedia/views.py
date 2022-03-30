@@ -5,6 +5,8 @@ from markdown import markdown
 
 from . import util
 
+import random
+
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -69,11 +71,10 @@ def newentry(request):
 def editpage(request, entry):
 
     if request.method == 'POST':
-        e_title = request.POST.get('n_title')
         e_cont = request.POST.get('n_cont')
         
-        util.save_entry(e_title, e_cont)
-        return viewentry(request, e_title)
+        util.save_entry(entry, bytes(e_cont, 'utf8'))
+        return viewentry(request, entry)
     
     else:
 
@@ -84,6 +85,14 @@ def editpage(request, entry):
             "e_title": entry,
             "e_content": util.get_entry(entry)                 
         })
+
+def randompage(request):
+    
+    entries = []
+    for ent in util.list_entries():
+        entries.append(ent.lower())
+    
+    return viewentry(request, random.choice(entries))
 
 
 def error_404(request, exception):

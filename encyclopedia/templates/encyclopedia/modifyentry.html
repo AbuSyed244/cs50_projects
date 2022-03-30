@@ -6,10 +6,15 @@
 
     <h1 style="margin-left: 10px;">{{label | title}}</h1><br>
     
+    {% if e_content %}
+        <div></div>
+    {% else %}
     <div>
         <h3 style="margin-left: 10px;">{{title_label}}</h3>
         <textarea form="modentryform" placeholder="Title" id="n_titletxt" name="n_title">{{e_title}}</textarea>
     </div>
+    
+    {% endif %}
 
     <div>
         <h3 style="margin-left: 10px;">{{cont_label}}</h3>
@@ -18,7 +23,7 @@
 
     <div>
         {% if e_content %}
-            <form action="/wiki/editpage/{{title_label}}" method="POST" id="modentryform">
+            <form action="/wiki/editpage/{{e_title}}" method="POST" id="modentryform">
                 {% csrf_token %}
                 <input type="submit" value="Save" style="margin: 10px">
             </form>
