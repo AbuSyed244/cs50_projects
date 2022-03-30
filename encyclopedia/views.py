@@ -14,9 +14,16 @@ def index(request):
         })
 
 def viewentry(request, entry):
-    return render(request, "encyclopedia/viewentry.html", {
-            "entry": markdown(util.get_entry(entry)),
-            "entrytitle": entry
+
+    try:
+        return render(request, "encyclopedia/viewentry.html", {
+                "entry": markdown(util.get_entry(entry)),
+                "entrytitle": entry
+            })
+    except:
+        return render(request, "encyclopedia/viewentry.html", {
+            "entry": "Sorry, the page you requested does not exist!",
+            "entrytitle": "Page Not Found"
         })
 
 def search(request):
@@ -44,7 +51,7 @@ def search(request):
             else:
                 return render(request, "encyclopedia/search.html", {
                 "searchentries": searchentries,
-                "message": "Here are the search entries:"
+                "message": "Are you looking for:"
                     })
 
 def newentry(request):
